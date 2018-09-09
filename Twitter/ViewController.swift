@@ -14,8 +14,7 @@ class HomeViewController: DatasourceController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        self.datasource = UsersDataSource(list: ["User1", "User2", "User3"])
-        // Do any additional setup after loading the view, typically from a nib.
+        self.datasource = UsersDataSource(list: ["Bohdan Sasko", "Bohdan Sasko", "Bohdan Sasko"])
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,6 +33,6 @@ extension HomeViewController {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSize(width: self.view.frame.width, height: 100)
+        return CGSize(width: self.view.frame.width, height: 50)
     }
 }
