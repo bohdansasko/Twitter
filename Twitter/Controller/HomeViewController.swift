@@ -6,15 +6,14 @@
 //  Copyright © 2018 Bogdan Sasko. All rights reserved.
 //
 
-import UIKit
 import LBTAComponents
 
 class HomeViewController: DatasourceController {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        self.datasource = UsersDataSource(list: ["Bohdan Sasko", "Bohdan Sasko", "Bohdan Sasko"])
+        
+        self.datasource = UsersDataSource()
     }
 
     override func didReceiveMemoryWarning() {

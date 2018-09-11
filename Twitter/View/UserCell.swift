@@ -1,56 +1,24 @@
 //
-//  Cells.swift
+//  UserCell.swift
 //  Twitter
 //
-//  Created by Bogdan Sasko on 9/9/18.
+//  Created by Bogdan Sasko on 9/12/18.
 //  Copyright © 2018 Bogdan Sasko. All rights reserved.
 //
 
 import LBTAComponents
 
-extension UIColor {
-    static let twitterBlueColor = UIColor(r: 61, g: 167, b: 244)
-}
-
-class UserHeaderCell : DatasourceCell {
-    var titleLabel : UILabel = {
-        let label = UILabel()
-        label.text = "WHO TO FOLLOW"
-        label.font = UIFont.systemFont(ofSize: 16)
-        return label
-    }()
-    
-    override func setupViews() {
-        super.setupViews()
-        
-        addSubview(titleLabel)
-        titleLabel.anchor(self.topAnchor, left: self.leftAnchor, bottom: self.bottomAnchor, right: self.rightAnchor, topConstant: 0, leftConstant: 12, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
-    }
-}
-
-class UserFooterCell : DatasourceCell {
-    var textLabel : UILabel = {
-        let label = UILabel()
-        label.text = "Show me more"
-        label.font = UIFont.systemFont(ofSize: 15)
-        label.textColor = .twitterBlueColor
-        return label
-    }()
-    
-    override func setupViews() {
-        super.setupViews()
-        
-        addSubview(textLabel)
-        textLabel.anchor(self.topAnchor, left: self.leftAnchor, bottom: self.bottomAnchor, right: self.rightAnchor, topConstant: 0, leftConstant: 12, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
-    }
-}
-
 class UserCell : DatasourceCell {
     override var datasourceItem: Any? {
         didSet {
-            usernameLabel.text = datasourceItem as? String
+            guard let user = datasourceItem as? User else { return }
+            usernameLabel.text = user.name
+            hashTagLabel.text = user.username
+            bioTextView.text = user.bioText
+            userImage.image = user.profileImage
         }
     }
+    
     var usernameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 14)
@@ -94,10 +62,13 @@ class UserCell : DatasourceCell {
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -8, bottom: 0, right: 0)
         return button
     }()
-
+    
     override func setupViews() {
         super.setupViews()
-
+        
+        separatorLineView.isHidden = false
+        separatorLineView.backgroundColor = UIColor(r: 230, g: 230, b: 230)
+        
         addSubview(userImage)
         addSubview(usernameLabel)
         addSubview(followBtn)
