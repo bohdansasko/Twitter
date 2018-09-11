@@ -27,7 +27,6 @@ class UserCell : DatasourceCell {
     
     var hashTagLabel: UILabel = {
         let label = UILabel()
-        label.text = "@Vinso"
         label.textColor = UIColor(r: 130, g: 130, b: 130)
         label.font = UIFont.systemFont(ofSize: 15)
         return label
@@ -35,15 +34,13 @@ class UserCell : DatasourceCell {
     
     var bioTextView: UITextView = {
         let textView = UITextView()
-        textView.text = "iPhone, iPad, iOS Programming Community. Join us to learn Swift, Objective-C and build iOS apps!"
-        textView.font = UIFont.systemFont(ofSize: 14)
+        textView.font = UIFont.systemFont(ofSize: 15)
         textView.backgroundColor = .clear
         return textView
     }()
     
     var userImage: UIImageView = {
         let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-        image.image = #imageLiteral(resourceName: "profile_image")
         image.layer.cornerRadius = 6
         image.layer.masksToBounds = true
         return image
@@ -75,6 +72,10 @@ class UserCell : DatasourceCell {
         addSubview(hashTagLabel)
         addSubview(bioTextView)
         
+        setupConstraints()
+    }
+    
+    private func setupConstraints() {
         userImage.anchor(self.topAnchor, left: self.leftAnchor, bottom: nil, right: nil, topConstant: 12, leftConstant: 12, bottomConstant: 0, rightConstant: 0, widthConstant: 50, heightConstant: 50)
         
         usernameLabel.anchor(userImage.topAnchor, left: userImage.rightAnchor, bottom: nil, right: followBtn.leftAnchor, topConstant: 0, leftConstant: 4, bottomConstant: 0, rightConstant: 12, widthConstant: 0, heightConstant: 20)
