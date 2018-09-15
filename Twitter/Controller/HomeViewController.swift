@@ -15,7 +15,7 @@ class HomeViewController: DatasourceController {
         view.backgroundColor = .white
         
         self.datasource = UsersDataSource()
-        
+        self.collectionView?.backgroundColor = UIColor(r: 232, g: 236, b: 241)
         setupNavigationBar()
     }
     
@@ -29,26 +29,41 @@ class HomeViewController: DatasourceController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard let user = self.datasource?.item(indexPath) as? User else { return CGSize(width: self.view.frame.width, height: 100)}
-        
-        let maxStringSize = CGSize(width: self.view.frame.width - 12 - 50 - 12 - 4, height: 1000)
-        let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15)]
-        var estimatedTextSize = NSString(string: user.bioText).boundingRect(with: maxStringSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
-        
-        estimatedTextSize.size.width = self.view.frame.width
-        estimatedTextSize.size.height = estimatedTextSize.size.height + 66
-        
-        return estimatedTextSize.size
+        switch indexPath.section {
+        case 0:
+            guard let user = self.datasource?.item(indexPath) as? User else { return CGSize(width: self.view.frame.width, height: 100)}
+            let maxStringSize = CGSize(width: self.view.frame.width - 12 - 50 - 12 - 4, height: 1000)
+            let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15)]
+            var estimatedTextSize = NSString(string: user.bioText).boundingRect(with: maxStringSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
+            
+            estimatedTextSize.size.width = self.view.frame.width
+            estimatedTextSize.size.height = estimatedTextSize.size.height + 66
+            
+            return estimatedTextSize.size
+        case 1:
+            guard let tweet = self.datasource?.item(indexPath) as? Tweet else { return CGSize(width: self.view.frame.width, height: 100)}
+            return CGSize(width: self.view.frame.width, height: 100)
+        default:
+            return CGSize.zero
+        }
     }
 }
 
 extension HomeViewController {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: self.view.frame.width, height: 50)
+        switch section {
+        case 0: return CGSize(width: self.view.frame.width, height: 50)
+        case 1: return CGSize.zero
+        default: return CGSize.zero
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSize(width: self.view.frame.width, height: 50)
+        switch section {
+        case 0: return CGSize(width: self.view.frame.width, height: 64)
+        case 1: return CGSize.zero
+        default: return CGSize.zero
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

@@ -12,6 +12,12 @@ extension HomeViewController {
     func setupNavigationBar() {
         navigationController?.navigationBar.backgroundColor = .white
         navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.shadowImage = UIImage()
+        
+        let separatedViewLine = UIView()
+        view.addSubview(separatedViewLine)
+        separatedViewLine.backgroundColor = UIColor(r: 230, g: 230, b: 230)
+        separatedViewLine.anchor(view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0.5)
         
         setupLeftNavigationBarItems()
         setupTitleNavigationBar()
