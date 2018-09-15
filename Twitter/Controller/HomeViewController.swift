@@ -10,16 +10,45 @@ import LBTAComponents
 
 
 class HomeViewController: DatasourceController {
+    private var messageErrorLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Something went wrong. We can't recognize what happens. Please, try again a little bit later..."
+        label.isHidden = true
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        layout?.sectionInsetReference = .fromSafeArea
         
-        self.datasource = UsersDataSource()
+        view.addSubview(messageErrorLabel)
+        messageErrorLabel.anchor(view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 20, bottomConstant: 0, rightConstant: 20, widthConstant: 0, heightConstant: 0)
+        
         self.collectionView?.backgroundColor = UIColor(r: 232, g: 236, b: 241)
         setupNavigationBar()
+        loadData()
+    }
+    
+    private func loadData() {
+        APIController.shared.loadData(urlType: .TwitterHomeWithError) {
+            (incomingusersDataSource, error) in
+            if let _ = error {
+                self.messageErrorLabel.isHidden = false
+                print("We got an error.")
+                return
+            }
+            
+            if let datasource = incomingusersDataSource {
+                self.datasource = datasource
+            }
+        }
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
         collectionViewLayout.invalidateLayout()
     }
 
@@ -32,20 +61,22 @@ class HomeViewController: DatasourceController {
         switch indexPath.section {
         case 0:
             guard let user = self.datasource?.item(indexPath) as? User else { return CGSize(width: self.view.frame.width, height: 100)}
-            let maxStringSize = CGSize(width: self.view.frame.width - 12 - 50 - 12 - 4, height: 1000)
-            let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15)]
-            var estimatedTextSize = NSString(string: user.bioText).boundingRect(with: maxStringSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
-            
-            estimatedTextSize.size.width = self.view.frame.width
-            estimatedTextSize.size.height = estimatedTextSize.size.height + 66
-            
-            return estimatedTextSize.size
+            let estimatedTextHeight = getEstimatedTextHeight(user.bioText) + 66
+            return CGSize(width: self.view.frame.width, height: estimatedTextHeight)
         case 1:
             guard let tweet = self.datasource?.item(indexPath) as? Tweet else { return CGSize(width: self.view.frame.width, height: 100)}
-            return CGSize(width: self.view.frame.width, height: 150)
+            let estimatedTextHeight = getEstimatedTextHeight(tweet.message) + 74
+            return CGSize(width: self.view.frame.width, height: estimatedTextHeight)
         default:
             return CGSize.zero
         }
+    }
+    
+    private func getEstimatedTextHeight(_ text: String) -> CGFloat {
+        let maxStringSize = CGSize(width: self.view.frame.width - 12 - 50 - 12 - 4, height: 1000)
+        let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15)]
+        let estimatedTextSize = NSString(string: text).boundingRect(with: maxStringSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
+        return estimatedTextSize.size.height
     }
 }
 

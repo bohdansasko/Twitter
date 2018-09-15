@@ -8,8 +8,15 @@
 
 import Foundation
 import UIKit.UIImage
+import TRON
+import SwiftyJSON
 
-struct Tweet {
+struct Tweet: JSONDecodable {
     let user: User
     let message: String
+    
+    init(json: JSON) throws {
+        self.user = try User(json: json["user"])
+        self.message = json["message"].stringValue
+    }
 }

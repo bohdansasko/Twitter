@@ -9,10 +9,8 @@
 import LBTAComponents
 
 class TweetCell: DatasourceCell {
-    var userImage: UIImageView = {
-        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-        image.layer.cornerRadius = 6
-        image.layer.masksToBounds = true
+    var userImage: CachedImageView = {
+        let image = CachedImageView(cornerRadius: 6, emptyImage: nil)
         return image
     }()
     
@@ -54,7 +52,7 @@ class TweetCell: DatasourceCell {
             formattedString.append(textString)
 
             textView.attributedText = formattedString
-            userImage.image = tweet.user.profileImage
+            userImage.loadImage(urlString: tweet.user.profileImageUrl)
         }
     }
     

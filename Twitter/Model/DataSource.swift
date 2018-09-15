@@ -7,30 +7,24 @@
 //
 
 import LBTAComponents
+import SwiftyJSON
+import TRON
 
-class UsersDataSource : Datasource {
-    var users: [User] = {
-        let user1 = User(name: "Sasko Bohdan", username: "@TQ0oS", bioText: "iPhone, iPad, iOS Programming Community. Join us to learn Swift, Objective-C and build iOS apps!", profileImage: #imageLiteral(resourceName: "profile_image"))
-        let user2 = User(name: "Ray Wenderlich", username: "@rayw", bioText: "The team and I are extremely excited to announce the new http://raywenderlich.com! This is the most massive change we've made to the site in the past 9 years. Includes new learning paths, curated tutorials by subject, a personalized home page, and more: ...", profileImage: #imageLiteral(resourceName: "ray_profile_image"))
-        let user3 = User(name: "Test1", username: "@test1", bioText: "The team and I are extremely excited to announce the new http://raywenderlich.com! This is the most massive change we've made to the site in the past 9 years. Includes new learning paths, curated tutorials by subject, a personalized home page, and more: ...The team and I are extremely excited to announce the new http://raywenderlich.com!", profileImage: #imageLiteral(resourceName: "ray_profile_image"))
-        
-        return [user1, user2, user3]
-    }()
+extension Collection where Iterator.Element == JSON {
+    func decode<T: JSONDecodable>() throws -> [T] {
+        return try map({try T(json: $0)})
+    }
+}
+class UsersDataSource : Datasource, JSONDecodable {
+    var users: [User] = []
+    var tweets: [Tweet] = []
     
-    var tweets: [Tweet] = {
-        let user1 = User(name: "Sasko Bohdan", username: "@TQ0oS", bioText: "iPhone, iPad, iOS Programming Community. Join us to learn Swift, Objective-C and build iOS apps!", profileImage: #imageLiteral(resourceName: "profile_image"))
-        let user2 = User(name: "Ray Wenderlich", username: "@rayw", bioText: "The team and I are extremely excited to announce the new http://raywenderlich.com! This is the most massive change we've made to the site in the past 9 years. Includes new learning paths, curated tutorials by subject, a personalized home page, and more: ...", profileImage: #imageLiteral(resourceName: "ray_profile_image"))
-        
-        let tweet1 = Tweet(user: user1, message: "iPhone, iPad, iOS Programming Community. Join us to learn Swift, Objective-C and build iOS apps!")
-        let tweet2 = Tweet(user: user2, message: "iPhone, iPad, iOS Programming Community. Join us to learn Swift, Objective-C and build iOS apps!")
-        
-        return [tweet1, tweet2]
-    }()
-    
-    override init() {
-        super.init()
-        
-        self.objects = users
+    required init(json: JSON) throws {
+        guard let usersJSONArray = json["users"].array, let tweets = json["tweets"].array else {
+            throw NSError(domain: "com.letsbuildthatapp", code: 1, userInfo: [NSLocalizedDescriptionKey: "Fail to parse json"])
+        }
+        self.users = try usersJSONArray.decode()
+        self.tweets = try tweets.decode()
     }
     
     override func cellClasses() -> [DatasourceCell.Type] {

@@ -15,7 +15,7 @@ class UserCell : DatasourceCell {
             usernameLabel.text = user.name
             hashTagLabel.text = user.username
             bioTextView.text = user.bioText
-            userImage.image = user.profileImage
+            userImage.loadImage(urlString: user.profileImageUrl)
         }
     }
     
@@ -36,12 +36,12 @@ class UserCell : DatasourceCell {
         let textView = UITextView()
         textView.font = UIFont.systemFont(ofSize: 15)
         textView.backgroundColor = .clear
+        textView.isEditable = false
         return textView
     }()
     
-    var userImage: UIImageView = {
-        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-        image.layer.cornerRadius = 6
+    var userImage: CachedImageView = {
+        let image = CachedImageView(cornerRadius: 6)
         image.layer.masksToBounds = true
         return image
     }()
