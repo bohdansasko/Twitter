@@ -8,12 +8,15 @@
 
 import LBTAComponents
 
+
 class HomeViewController: DatasourceController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
         self.datasource = UsersDataSource()
+        
+        setupNavigationBar()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

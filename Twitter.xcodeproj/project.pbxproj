@@ -10,6 +10,7 @@
 		20A65A3E2148742A002CBB20 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A65A3D2148742A002CBB20 /* User.swift */; };
 		20A65A432148799E002CBB20 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A65A422148799E002CBB20 /* UserCell.swift */; };
 		20A65A4521487A56002CBB20 /* UIColor+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A65A4421487A56002CBB20 /* UIColor+extension.swift */; };
+		20B833AC214D169F00B2E3FE /* HomeViewController+NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B833AB214D169F00B2E3FE /* HomeViewController+NavigationBar.swift */; };
 		20EF74AC21453ACE00C49710 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EF74AB21453ACE00C49710 /* AppDelegate.swift */; };
 		20EF74AE21453ACE00C49710 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EF74AD21453ACE00C49710 /* HomeViewController.swift */; };
 		20EF74B321453ACF00C49710 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20EF74B221453ACF00C49710 /* Assets.xcassets */; };
@@ -23,6 +24,7 @@
 		20A65A3D2148742A002CBB20 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		20A65A422148799E002CBB20 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		20A65A4421487A56002CBB20 /* UIColor+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+extension.swift"; sourceTree = "<group>"; };
+		20B833AB214D169F00B2E3FE /* HomeViewController+NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+NavigationBar.swift"; sourceTree = "<group>"; };
 		20EF74A821453ACE00C49710 /* Twitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twitter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20EF74AB21453ACE00C49710 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		20EF74AD21453ACE00C49710 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				20EF74AD21453ACE00C49710 /* HomeViewController.swift */,
+				20B833AB214D169F00B2E3FE /* HomeViewController+NavigationBar.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 				20A65A432148799E002CBB20 /* UserCell.swift in Sources */,
 				20A65A4521487A56002CBB20 /* UIColor+extension.swift in Sources */,
 				20EF74C0214545D500C49710 /* DataSource.swift in Sources */,
+				20B833AC214D169F00B2E3FE /* HomeViewController+NavigationBar.swift in Sources */,
 				20A65A3E2148742A002CBB20 /* User.swift in Sources */,
 				20EF74AC21453ACE00C49710 /* AppDelegate.swift in Sources */,
 			);
