@@ -42,7 +42,7 @@ class HomeViewController: DatasourceController {
             return estimatedTextSize.size
         case 1:
             guard let tweet = self.datasource?.item(indexPath) as? Tweet else { return CGSize(width: self.view.frame.width, height: 100)}
-            return CGSize(width: self.view.frame.width, height: 100)
+            return CGSize(width: self.view.frame.width, height: 150)
         default:
             return CGSize.zero
         }

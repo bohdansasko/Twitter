@@ -68,8 +68,44 @@ class TweetCell: DatasourceCell {
         addSubview(userImage)
         addSubview(textView)
         
-        userImage.anchor(self.topAnchor, left: self.leftAnchor, bottom: nil, right: nil, topConstant: 12, leftConstant: 4, bottomConstant: 0, rightConstant: 0, widthConstant: 50, heightConstant: 50)
+        userImage.anchor(self.topAnchor, left: self.leftAnchor, bottom: nil, right: nil, topConstant: 12, leftConstant: 12, bottomConstant: 0, rightConstant: 0, widthConstant: 50, heightConstant: 50)
         
-        textView.anchor(self.topAnchor, left: userImage.rightAnchor, bottom: self.bottomAnchor, right: self.rightAnchor, topConstant: 0, leftConstant: 14, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        textView.anchor(self.topAnchor, left: userImage.rightAnchor, bottom: self.bottomAnchor, right: self.rightAnchor, topConstant: 0, leftConstant: 4, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        
+        controlsView()
+    }
+    
+    private func controlsView() {
+        let sendMessageViewContainer = getControlContainer(image: #imageLiteral(resourceName: "send_message"))
+        let likeViewContainer = getControlContainer(image: #imageLiteral(resourceName: "like"))
+        let retweetViewContainer = getControlContainer(image: #imageLiteral(resourceName: "retweet"))
+        let replyViewContainer = getControlContainer(image: #imageLiteral(resourceName: "reply"))
+
+        let buttonsStackView = UIStackView(arrangedSubviews: [replyViewContainer, retweetViewContainer, likeViewContainer, sendMessageViewContainer])
+        addSubview(buttonsStackView)
+        buttonsStackView.axis = .horizontal
+        buttonsStackView.distribution = .fillEqually
+        
+        buttonsStackView.anchor(nil, left: textView.leftAnchor, bottom: self.bottomAnchor, right: self.rightAnchor, topConstant: 4, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 20)
+    }
+    
+    private func getControlContainer(image: UIImage) -> UIView {
+        let viewContainer = UIView()
+        
+        let button = UIButton(type: .system)
+        viewContainer.addSubview(button)
+        button.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
+        button.anchor(viewContainer.topAnchor, left: viewContainer.leftAnchor, bottom: viewContainer.bottomAnchor, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 20, heightConstant: 20)
+        
+        return viewContainer
     }
 }
+
+
+
+
+
+
+
+
+
