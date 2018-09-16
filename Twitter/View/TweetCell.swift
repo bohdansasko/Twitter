@@ -66,9 +66,9 @@ class TweetCell: DatasourceCell {
         addSubview(userImage)
         addSubview(textView)
         
-        userImage.anchor(self.topAnchor, left: self.leftAnchor, bottom: nil, right: nil, topConstant: 12, leftConstant: 12, bottomConstant: 0, rightConstant: 0, widthConstant: 50, heightConstant: 50)
+        userImage.anchor(self.topAnchor, left: layoutMarginsGuide.leftAnchor, bottom: nil, right: nil, topConstant: 12, leftConstant: 12, bottomConstant: 0, rightConstant: 0, widthConstant: 50, heightConstant: 50)
         
-        textView.anchor(self.topAnchor, left: userImage.rightAnchor, bottom: self.bottomAnchor, right: self.rightAnchor, topConstant: 0, leftConstant: 4, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        textView.anchor(self.topAnchor, left: userImage.rightAnchor, bottom: self.bottomAnchor, right: layoutMarginsGuide.rightAnchor, topConstant: 0, leftConstant: 4, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
         
         controlsView()
     }

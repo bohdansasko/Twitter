@@ -22,18 +22,18 @@ class HomeViewController: DatasourceController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        layout?.sectionInsetReference = .fromSafeArea
         
         view.addSubview(messageErrorLabel)
         messageErrorLabel.anchor(view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 20, bottomConstant: 0, rightConstant: 20, widthConstant: 0, heightConstant: 0)
         
         self.collectionView?.backgroundColor = UIColor(r: 232, g: 236, b: 241)
         setupNavigationBar()
+        
         loadData()
     }
     
     private func loadData() {
-        APIController.shared.loadData(urlType: .TwitterHomeWithError) {
+        APIController.shared.loadData(urlType: .TwitterHome) {
             (incomingusersDataSource, error) in
             if let _ = error {
                 self.messageErrorLabel.isHidden = false
